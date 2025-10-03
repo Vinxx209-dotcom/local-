@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Confirmation - Local Marketplace</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      background: linear-gradient(to right, #dbeafe, #fef9c3);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px 0;
+    }
+
+    .confirmation-wrapper {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      font-weight: 700;
+      color: #1e3a8a;
+      text-align: center;
+    }
+
+    .order-details, .customer-details {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 15px;
+    }
+
+    .order-details h4,
+    .customer-details h4 {
+      color: #2563eb;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    #order-list li {
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .thank-you-message {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .thank-you-message h3 {
+      color: #16a34a;
+      font-weight: bold;
+    }
+
+    .thank-you-message p {
+      color: #374151;
+    }
+
+    .btn-primary {
+      background-color: #2563eb;
+      border: none;
+      padding: 10px 25px;
+      font-size: 16px;
+      border-radius: 12px;
+      transition: background 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+
+    .fa-check-circle {
+      color: #16a34a;
+      font-size: 50px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="confirmation-wrapper">
+      <div class="text-center">
+        <i class="fas fa-check-circle"></i>
+        <h2>Order Confirmed!</h2>
+      </div>
+
+      <div class="order-details">
+        <h4><i class="fas fa-box-open"></i> Order Summary</h4>
+        <ul id="order-list" class="list-unstyled"></ul>
+        <h5>Total: ₹<span id="order-total">0</span></h5>
+      </div>
+
+      <div class="customer-details">
+        <h4><i class="fas fa-user"></i> Customer Details</h4>
+        <p id="customer-name"></p>
+        <p id="customer-email"></p>
+        <p id="customer-address"></p>
+        <p id="customer-contact"></p>
+        <p id="payment-method"></p>
+      </div>
+
+      <div class="thank-you-message">
+        <h3>Thank you for your order!</h3>
+        <p>We will send a confirmation email and an estimated delivery time soon.</p>
+        <button class="btn btn-primary" onclick="window.location.href='index.html'">Back to Shopping</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      const orderList = document.getElementById('order-list');
+      const orderTotal = document.getElementById('order-total');
+      const customerName = document.getElementById('customer-name');
+      const customerEmail = document.getElementById('customer-email');
+      const customerAddress = document.getElementById('customer-address');
+      const customerContact = document.getElementById('customer-contact');
+      const paymentMethod = document.getElementById('payment-method');
+
+      const cart = JSON.parse(localStorage.getItem('cartData')) || [];
+      const customerDetails = JSON.parse(localStorage.getItem('customerDetails')) || {};
+
+      let total = 0;
+
+      if (cart.length === 0) {
+        orderList.innerHTML = '<li>No items in the cart.</li>';
+      } else {
+        cart.forEach(item => {
+          const qty = item.quantity || 1;
+          const subtotal = item.price * qty;
+          total += subtotal;
+
+          const li = document.createElement('li');
+          li.innerHTML = `${item.name} - ₹${item.price} x ${qty} = ₹${subtotal.toFixed(2)}`;
+          orderList.appendChild(li);
+        });
+      }
+
+      orderTotal.textContent = total.toFixed(2);
+
+      customerName.textContent = `Name: ${customerDetails.name}`;
+      customerEmail.textContent = `Email: ${customerDetails.email}`;
+      customerAddress.textContent = `Address: ${customerDetails.address}`;
+      customerContact.textContent = `Contact: ${customerDetails.contact}`;
+      paymentMethod.textContent = `Payment Method: ${customerDetails.payment}`;
+
+      // Clear cart data after confirmation
+      localStorage.removeItem('cart');
+      localStorage.removeItem('cartData');
+    };
+  </script>
+</body>
+</html>

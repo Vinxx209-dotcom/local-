@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout - Local Marketplace</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="checkout.css" /> <!-- Link to the external CSS file -->
+</head>
+<body>
+  <div class="container">
+    <h2>🧾 Checkout Page</h2>
+
+    <div class="row">
+      <!-- Cart Summary -->
+      <div class="col-md-7 mb-4">
+        <div class="cart-summary">
+          <h4>🛍️ Your Items</h4>
+          <ul id="item-list" class="list-group mb-3"></ul>
+          <h5 class="text-end total">Total: ₹<span id="total">0</span></h5>
+        </div>
+      </div>
+
+      <!-- Customer Form -->
+      <div class="col-md-5">
+        <div class="card p-4">
+          <div class="card-header">📋 Your Details</div>
+          <div class="card-body">
+            <form id="checkout-form">
+              <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" required />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" required />
+              </div>
+              <div class="mb-3">
+                <label for="address" class="form-label">Delivery Address</label>
+                <textarea class="form-control" id="address" rows="3" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="contact" class="form-label">Contact Number</label>
+                <input type="tel" class="form-control" id="contact" required />
+              </div>
+              <div class="mb-4">
+                <label for="payment" class="form-label">Payment Method</label>
+                <select id="payment" class="form-select" required>
+                  <option value="">Select a payment method</option>
+                  <option value="Cash on Delivery">Cash on Delivery</option>
+                  <option value="UPI">UPI</option>
+                  <option value="Card Payment">Card Payment</option>
+                </select>
+              </div>
+              <button type="submit" class="btn w-100">Place Order</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Processing Animation -->
+  <div class="modal fade" id="processingModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-4">
+        <div class="spinner-border text-primary mb-3" role="status"></div>
+        <h5>Processing your order...</h5>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cartData')) || [];
+    const itemList = document.getElementById("item-list");
+    const totalEl = document.getElementById("total");
+
+    let total = 0;
+
+    if (!cart.length) {
+      itemList.innerHTML = '<li class="list-group-item text-center">No items in cart.</li>';
+      totalEl.textContent = '0';
+    } else {
+      cart.forEach(item => {
+        const qty = item.quantity || 1;
+        const subtotal = item.price * qty;
+        total += subtotal;
+
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center";
+        li.innerHTML = `
+          <div>
+            <strong>${item.name}</strong><br/>
+            <small>Price: ₹${item.price} × ${qty}</small>
+          </div>
+          <span class="fw-bold">₹${subtotal.toFixed(2)}</span>
+        `;
+        itemList.appendChild(li);
+      });
+
+      totalEl.textContent = total.toFixed(2);
+    }
+
+    document.getElementById("checkout-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const customerDetails = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        address: document.getElementById("address").value,
+        contact: document.getElementById("contact").value,
+        payment: document.getElementById("payment").value
+      };
+
+      // Save data to localStorage
+      localStorage.setItem("customerDetails", JSON.stringify(customerDetails));
+
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('processingModal'));
+      modal.show();
+
+      // Wait 2 seconds, then redirect
+      setTimeout(() => {
+        window.location.href = "order-confirmation.html";
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
+
+

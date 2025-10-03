@@ -1,0 +1,134 @@
+/* General Styling */
+body {
+  background: linear-gradient(120deg, #f0f4f8, #e2e8f0);
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-weight: 700;
+  color: #2b2d42;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+/* Card Styling */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  border: none;
+}
+
+.card-header {
+  background: #3b82f6;
+  color: #fff;
+  padding: 20px;
+  border-radius: 12px 12px 0 0;
+  font-size: 1.25rem;
+}
+
+.card-body {
+  padding: 30px;
+  background: #f9fafb;
+}
+
+.form-control, .form-select {
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  font-size: 1rem;
+  background: #fff;
+  transition: all 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+}
+
+.btn {
+  font-size: 1.125rem;
+  font-weight: 600;
+  background-color: #3b82f6;
+  border: none;
+  padding: 12px 20px;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background-color: #2563eb;
+}
+
+/* Cart Summary */
+.cart-summary {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cart-summary h4 {
+  color: #2b2d42;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.cart-summary .list-group-item {
+  border: none;
+  padding: 15px;
+  background-color: transparent;
+}
+
+.cart-summary .list-group-item span {
+  font-weight: 600;
+  color: #3b82f6;
+}
+
+.cart-summary .list-group-item small {
+  color: #555;
+}
+
+.cart-summary .total {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+/* Modal Styling */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#processingModal .modal-content {
+  border-radius: 15px;
+  text-align: center;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+
+  .cart-summary, .card {
+    margin-bottom: 20px;
+  }
+}
+

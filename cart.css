@@ -1,0 +1,144 @@
+:root {
+  --bg-page: #f0f2f5;
+  --bg-card: #ffffff;
+  --primary: #2c3e50;
+  --secondary: #7f8c8d;
+  --accent: #e67e22;
+  --danger: #c0392b;
+  --success: #27ae60;
+  --border-radius: 0.5rem;
+  --transition: 0.3s ease-in-out;
+}
+
+* {
+  box-sizing: border-box;
+  transition: var(--transition);
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg-page);
+  color: var(--primary);
+}
+
+.navbar {
+  background: var(--primary)!important;
+}
+.navbar .navbar-brand,
+.navbar .btn-outline-light {
+  font-weight: 600;
+}
+.navbar .btn-outline-light:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.container {
+  max-width: 900px;
+}
+
+/* Table Container Card */
+.table-responsive {
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+}
+
+/* Table Header */
+.table thead {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  color: #fff;
+  text-transform: uppercase;
+}
+.table th {
+  border: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+/* Table Rows */
+.table tbody tr {
+  background: var(--bg-card);
+  border-bottom: 1px solid #e0e0e0;
+}
+.table tbody tr:hover {
+  background: rgba(230, 126, 34, 0.05);
+}
+
+/* Symbol Column */
+.symbol {
+  font-size: 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--success));
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Inputs */
+.table .form-control {
+  width: 80px;
+  margin: auto;
+}
+
+/* Buttons */
+.btn {
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.btn-danger {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+.btn-danger:hover {
+  background: #a93226;
+  border-color: #a93226;
+}
+.btn-success {
+  background: var(--success);
+  border-color: var(--success);
+}
+.btn-success:hover {
+  background: #1e8449;
+  border-color: #1e8449;
+}
+
+/* Total Section */
+.d-flex h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+#total-price {
+  color: var(--accent);
+}
+
+/* Responsive Tweaks */
+@media (max-width: 576px) {
+  .table-responsive {
+    padding: 1rem;
+  }
+  .symbol {
+    width: 40px;
+    height: 40px;
+    font-size: 1.4rem;
+  }
+  .table th, .table td {
+    font-size: 0.85rem;
+  }
+  .form-control {
+    width: 60px;
+  }
+  .btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}

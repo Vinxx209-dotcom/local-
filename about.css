@@ -1,0 +1,88 @@
+/* Reset and base */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #e0eafc, #cfdef3);
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  .about-wrapper {
+    padding: 60px 20px;
+  }
+  
+  .container {
+    background: #fff;
+    border-radius: 16px;
+    padding: 40px 30px;
+    max-width: 900px;
+    margin: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title */
+  .about-title {
+    font-size: 2.5rem;
+    color: #4b3f72;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 3px solid #6c63ff;
+    display: inline-block;
+    padding-bottom: 8px;
+  }
+  
+  /* Intro Paragraph */
+  .about-intro {
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  /* Sections */
+  .about-section {
+    margin-bottom: 35px;
+  }
+  
+  .about-section h3 {
+    font-size: 1.7rem;
+    color: #6c63ff;
+    margin-bottom: 15px;
+    border-left: 4px solid #6c63ff;
+    padding-left: 12px;
+  }
+  
+  .about-section p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #555;
+  }
+  
+  .about-section ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    font-size: 1.05rem;
+    color: #555;
+  }
+  
+  .about-section ul li {
+    margin-bottom: 10px;
+  }
+  
+  /* Button */
+  .btn-primary {
+    background-color: #6c63ff;
+    border: none;
+    font-size: 1rem;
+    padding: 10px 25px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #4b3fce;
+    color: white;
+  }
+  

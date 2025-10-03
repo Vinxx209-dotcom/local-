@@ -1,0 +1,176 @@
+/* General Body Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(-45deg, #ffecd2, #fcb69f, #ff9a9e, #fad0c4);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+/* Keyframes for Animated Gradient Background */
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Header Styling */
+.header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-weight: 600;
+    color: #2c3e50;
+    animation: slideIn 1s ease-out;
+}
+
+.nav-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-list a:hover {
+    color: #0d6efd;
+}
+
+/* Animation for Logo */
+@keyframes slideIn {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Hero Section Styling */
+.hero {
+    background-image: url('../images/banner.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 20px;
+    text-align: center;
+    color: white;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    animation: fadeIn 2s ease-out;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    animation: fadeIn 3s ease-out;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Shop Now Button Styling */
+.hero .btn {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover Effect for Button */
+.hero .btn:hover {
+    background: linear-gradient(135deg, #fcb69f, #ff9a9e);
+    transform: translateY(-5px); /* Slight upward movement */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Active Effect for Button (when clicked) */
+.hero .btn:active {
+    transform: translateY(2px); /* Button slightly moves down when clicked */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Categories Section Styling */
+.categories {
+    padding: 60px 20px;
+    text-align: center;
+    color: #333;
+}
+
+.categories h3 {
+    font-weight: 600;
+}
+
+.category-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #333;
+    color: white;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 768px) {
+    .hero h2 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .category-card {
+        padding: 20px;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+

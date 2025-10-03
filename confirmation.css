@@ -1,0 +1,117 @@
+/* Base styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Wrapper for the confirmation section */
+.confirmation-wrapper {
+    background-color: #ffffff;
+    padding: 40px;
+    max-width: 900px;
+    margin: 60px auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+/* Headline styling */
+.confirmation-wrapper h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* Section headers */
+.order-details h4,
+.customer-details h4 {
+    font-size: 1.6rem;
+    color: #007bff;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* Order item list */
+.order-details ul {
+    list-style: none;
+    padding: 0;
+    font-size: 1.15rem;
+    margin: 0 auto;
+    max-width: 600px;
+    text-align: left;
+}
+
+.order-details li {
+    background-color: #f8f9fa;
+    margin-bottom: 10px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    border-left: 4px solid #007bff;
+}
+
+/* Customer info section */
+.customer-details p {
+    font-size: 1.1rem;
+    margin: 6px 0;
+    color: #444;
+}
+
+/* Thank you message box */
+.thank-you-message {
+    background-color: #e9f5ec;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 30px;
+    border-left: 6px solid #28a745;
+}
+
+/* Thank you heading and link */
+.thank-you-message h3 {
+    font-size: 2rem;
+    color: #28a745;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.thank-you-message p {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.thank-you-message a {
+    font-size: 1.1rem;
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.thank-you-message a:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .confirmation-wrapper {
+        padding: 20px;
+    }
+
+    .order-details ul {
+        font-size: 1rem;
+    }
+
+    .thank-you-message h3 {
+        font-size: 1.5rem;
+    }
+}
+

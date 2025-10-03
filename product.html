@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products - Local Marketplace</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="product.css" />
+  <style>
+    /* Your existing styles */
+    body {
+      background-color: #f8f9fa;
+    }
+    .navbar {
+      background-color: #343a40;
+      padding: 15px;
+    }
+    .navbar .logo {
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-right: auto;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-links li a:hover {
+      color: #ffc107;
+    }
+    .card {
+      height: 100%;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease-in-out;
+    }
+    .card:hover {
+      transform: scale(1.03);
+    }
+    .card img {
+      height: 250px;
+      object-fit: cover;
+    }
+
+    /* Search bar styling */
+    .search-bar {
+      margin: 30px auto;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    .search-bar input:focus {
+      border-color: #6c63ff;
+    }
+
+    
+    .no-products {
+      display: none;
+      color: red;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+   
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border-radius: 5px;
+      display: none;
+      font-size: 1rem;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Local Marketplace</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html">Products</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+    </ul>
+  </nav>
+
+  
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="Search products..." />
+  </div>
+
+  <!-- 🛍️ Product Grid -->
+  <div class="container my-5">
+    <h1 class="text-center mb-4" id="product-heading">Our Products</h1>
+    <div class="no-products" id="no-products-msg">Product not available</div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="product-grid">
+      <!-- Products will be dynamically added here by JS -->
+    </div>
+  </div>
+
+  <!-- Notification -->
+  <div id="notification" class="notification">
+    Product added to cart!
+  </div>
+
+  <!-- 🧠 JavaScript for dynamic products + cart + search functionality -->
+  <script>
+    const products = [
+      // 👕 Clothes
+      { name: "Printed T-Shirt", price: 499, image: "image/printed tshirt1.jpg" },
+      { name: "Hoodie", price: 999, image: "image/hoodies.avif" },
+      { name: "Casual Shirt", price: 749, image: "image/shirt.avif" },
+      { name: "Formal Pants", price: 899, image: "image/formal pant.webp" },
+      { name: "Denim Jacket", price: 1299, image: "image/denim jacket.avif" },
+      { name: "Kurta Set", price: 1099, image: "image/kurtaset.webp" },
+      { name: "Track Pants", price: 699, image: "image/track pant.webp" },
+      { name: "Graphic Tee", price: 399, image: "image/graphic tee.avif" },
+      { name: "Oversized Hoodie", price: 1499, image: "image/oversized hoddie.webp" },
+      { name: "Tank Top", price: 299, image: "image/tank top.avif" },
+      { name: "Polo Shirt", price: 799, image: "image/polo shirt.jpeg" },
+      { name: "Leather Jacket", price: 3999, image: "image/leather jacket.webp" },
+      { name: "Chinos Pants", price: 899, image: "image/chinos pants.jpg" },
+      { name: "Basic Hoodie", price: 799, image: "image/basic hoddie.webp" },
+      { name: "Bomber Jacket", price: 1499, image: "image/bombber jacket.jpg" },
+      { name: "Cotton Shorts", price: 599, image: "image/cotton short.jpg" },
+      { name: "Striped Shirt", price: 849, image: "image/strip.webp" },
+      { name: "V-neck T-Shirt", price: 499, image: "image/v neck tshirt.jpeg" },
+      { name: "Double-breasted Blazer", price: 2499, image: "image/doublebreasted blazzer.webp" },
+      { name: "Basic Tee", price: 399, image: "image/basic tee.webp" },
+      
+      // 👟 Footwear
+      { name: "Running Shoes", price: 1299, image: "image/shoes1.avif" },
+      { name: "Sneakers", price: 1999, image: "image/shoes2.avif" },
+      { name: "Leather Boots", price: 2299, image: "image/lather boot.webp" },
+      { name: "Flip-flops", price: 299, image: "image/flip flop.avif" },
+      { name: "Casual Sneakers", price: 1199, image: "image/casual.jpg" },
+      { name: "Boots", price: 1799, image: "image/boots.avif" },
+      { name: "Loafers", price: 1199, image: "image/lofoars.webp" },
+      { name: "Slip-ons", price: 899, image: "image/slip on.webp" },
+      { name: "Chappals", price: 499, image: "image/chappals.webp" },
+      { name: "Running Sneakers", price: 1599, image: "image/runnind sneakers.webp" },
+    ];
+
+    const productGrid = document.getElementById("product-grid");
+    const searchInput = document.getElementById("search-input");
+    const productHeading = document.getElementById("product-heading");
+    const noProductsMsg = document.getElementById("no-products-msg");
+    const notification = document.getElementById("notification");
+
+    // Function to display products
+    function displayProducts(filteredProducts) {
+      productGrid.innerHTML = "";
+      if (filteredProducts.length === 0) {
+        productHeading.style.display = "none";
+        noProductsMsg.style.display = "block";
+      } else {
+        productHeading.style.display = "block";
+        noProductsMsg.style.display = "none";
+        filteredProducts.forEach(product => {
+          const col = document.createElement("div");
+          col.className = "col";
+          col.innerHTML = `
+            <div class="card">
+              <img src="${product.image}" class="card-img-top" alt="${product.name}">
+              <div class="card-body">
+                <h5 class="card-title">${product.name}</h5>
+                <p class="card-text">₹${product.price}</p>
+                <button class="btn btn-primary add-to-cart" data-product="${product.name}" data-price="${product.price}">Add to Cart</button>
+              </div>
+            </div>
+          `;
+          productGrid.appendChild(col);
+        });
+      }
+    }
+
+    // Display all products initially
+    displayProducts(products);
+
+    // Search functionality
+    searchInput.addEventListener("input", function() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const filteredProducts = products.filter(product => 
+        product.name.toLowerCase().includes(searchTerm)
+      );
+      displayProducts(filteredProducts);
+    });
+
+    // Add to Cart functionality
+    document.addEventListener("click", function (e) {
+      if (e.target.classList.contains("add-to-cart")) {
+        const name = e.target.dataset.product;
+        const price = parseInt(e.target.dataset.price);
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.push({ name, price });
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cartCount", cart.length);
+
+        updateCartCount();
+
+        // Show notification
+        notification.style.display = "block";
+        notification.style.opacity = "1";
+        setTimeout(() => {
+          notification.style.opacity = "0";
+          setTimeout(() => notification.style.display = "none", 500);
+        }, 2000);
+      }
+    });
+
+    // Update cart count in the navbar
+    function updateCartCount() {
+      const count = localStorage.getItem("cartCount") || 0;
+      document.getElementById("cart-count").textContent = count;
+    }
+
+    updateCartCount();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

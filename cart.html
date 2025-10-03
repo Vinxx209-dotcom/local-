@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shopping Cart - Local Marketplace</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    table th, table td {
+      vertical-align: middle;
+    }
+    .table thead th {
+      background-color: #343a40;
+      color: white;
+    }
+    .btn {
+      font-size: 0.9rem;
+    }
+    h1 {
+      font-weight: bold;
+      color: #343a40;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mb-4 text-center">🛒 Your Shopping Cart</h1>
+
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle text-center">
+        <thead>
+          <tr>
+            <th>🖼️</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Subtotal</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items"></tbody>
+      </table>
+    </div>
+
+    <div class="text-end">
+      <h4>Total: ₹<span id="total-price">0</span></h4>
+      <button class="btn btn-danger me-2" id="clear-cart">Clear Cart</button>
+      <button class="btn btn-success" id="checkout">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function getSymbol(name) {
+      const n = name.toLowerCase();
+      const clothes = ['shirt', 'hoodie', 'jacket', 'pant', 'tee', 'blazer', 'short', 'kurta'];
+      const shoe = ['shoe', 'sneaker', 'boot', 'flip', 'chappal', 'loafer', 'slip'];
+      if (clothes.some(k => n.includes(k))) return '👕';
+      if (shoe.some(k => n.includes(k))) return '👟';
+      return '🎁';
+    }
+
+    function renderCart() {
+      const tbody = document.getElementById("cart-items");
+      const totalE = document.getElementById("total-price");
+      tbody.innerHTML = '';
+      let total = 0;
+
+      if (!cart.length) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center">Your cart is empty.</td></tr>`;
+        totalE.textContent = '0';
+        return;
+      }
+
+      cart.forEach((item, i) => {
+        const qty = item.quantity || 1;
+        const subtotal = item.price * qty;
+        total += subtotal;
+        const sym = getSymbol(item.name);
+
+        tbody.innerHTML += `
+          <tr>
+            <td>${sym}</td>
+            <td>${item.name}</td>
+            <td>₹${item.price}</td>
+            <td><input type="number" min="1" value="${qty}" class="form-control quantity" data-index="${i}"></td>
+            <td>₹${subtotal.toFixed(2)}</td>
+            <td><button class="btn btn-sm btn-danger remove-btn" data-index="${i}">Remove</button></td>
+          </tr>
+        `;
+      });
+
+      totalE.textContent = total.toFixed(2);
+    }
+
+    document.addEventListener('input', e => {
+      if (e.target.classList.contains('quantity')) {
+        const i = +e.target.dataset.index;
+        cart[i].quantity = Math.max(1, parseInt(e.target.value));
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+      }
+    });
+
+    document.addEventListener('click', e => {
+      if (e.target.classList.contains('remove-btn')) {
+        const i = +e.target.dataset.index;
+        cart.splice(i, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+      }
+    });
+
+    document.getElementById('clear-cart').onclick = () => {
+      cart = [];
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    };
+
+    document.getElementById('checkout').onclick = () => {
+      localStorage.setItem("cartData", JSON.stringify(cart));
+      window.location.href = "checkout.html";
+    };
+
+    renderCart();
+  </script>
+</body>
+</html>
